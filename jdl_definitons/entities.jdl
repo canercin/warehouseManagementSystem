@@ -1,0 +1,62 @@
+entity Warehouse{
+	id UUID
+    name String
+}
+
+entity Product{
+  id UUID
+  name String
+  description String
+  createdAt LocalDate
+  quantityType QuantityTypes
+  updatedAt LocalDate
+}
+
+entity Supplier{
+	id UUID
+    name String
+    contactInfo String
+    address String
+}
+
+entity Batch {
+	id UUID
+    batchNumber Integer
+    purchaseQuantity Integer
+    purchasePrice Float
+    salePrice Float
+    purchaseDate LocalDate
+}
+
+enum QuantityTypes {
+	PIECE,
+    KG,
+    G,
+    L,
+    ML
+}
+
+entity SupplierContact {
+  name String,
+  email String,
+  phone String
+}
+
+relationship ManyToMany {
+	Product{warehouses(name)} to Warehouse{products(name)}
+}
+
+relationship ManyToMany {
+	Supplier{products(name)} to Product{suppliers(name)}
+}
+
+relationship ManyToOne{
+	Batch{product(name)} to Product{batches(batchNumber)}
+}
+
+relationship ManyToOne{
+  SupplierContact{supplier(name)} to Supplier{contacts(name)}
+}
+
+//service * with serviceImpl
+dto * with mapstruct

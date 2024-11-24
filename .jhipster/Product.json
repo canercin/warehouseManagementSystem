@@ -1,0 +1,38 @@
+{
+  "annotations": {
+    "changelogDate": "20241120133811"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "name",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "description",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "createdAt",
+      "fieldType": "LocalDate"
+    },
+    {
+      "fieldName": "quantityType",
+      "fieldType": "QuantityTypes",
+      "fieldValues": "PIECE,KG,G,L,ML"
+    },
+    {
+      "fieldName": "updatedAt",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Product",
+  "relationships": [],
+  "searchEngine": "no",
+  "service": "serviceClass"
+}

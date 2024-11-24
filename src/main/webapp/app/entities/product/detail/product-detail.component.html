@@ -1,0 +1,68 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (product(); as productRef) {
+      <div>
+        <h2 data-cy="productDetailsHeading"><span>Product</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ productRef.id }}</span>
+          </dd>
+          <dt><span>Name</span></dt>
+          <dd>
+            <span>{{ productRef.name }}</span>
+          </dd>
+          <dt><span>Description</span></dt>
+          <dd>
+            <span>{{ productRef.description }}</span>
+          </dd>
+          <dt><span>Created At</span></dt>
+          <dd>
+            <span>{{ productRef.createdAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Quantity Type</span></dt>
+          <dd>
+            <span>{{ { null: '', PIECE: 'PIECE', KG: 'KG', G: 'G', L: 'L', ML: 'ML' }[productRef.quantityType ?? 'null'] }}</span>
+          </dd>
+          <dt><span>Updated At</span></dt>
+          <dd>
+            <span>{{ productRef.updatedAt | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Warehouses</span></dt>
+          <dd>
+            @for (warehouses of productRef.warehouses; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/warehouse', warehouses.id, 'view']">{{ warehouses?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+          <dt><span>Suppliers</span></dt>
+          <dd>
+            @for (suppliers of productRef.suppliers; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/supplier', suppliers.id, 'view']">{{ suppliers?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/product', productRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

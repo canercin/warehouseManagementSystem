@@ -1,0 +1,46 @@
+{
+  "annotations": {
+    "changelogDate": "20241120133813"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "id",
+      "fieldType": "UUID"
+    },
+    {
+      "fieldName": "batchNumber",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "purchaseQuantity",
+      "fieldType": "Integer"
+    },
+    {
+      "fieldName": "purchasePrice",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "salePrice",
+      "fieldType": "Float"
+    },
+    {
+      "fieldName": "purchaseDate",
+      "fieldType": "LocalDate"
+    }
+  ],
+  "name": "Batch",
+  "relationships": [
+    {
+      "otherEntityField": "name",
+      "otherEntityName": "product",
+      "otherEntityRelationshipName": "batches",
+      "relationshipName": "product",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-one"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}

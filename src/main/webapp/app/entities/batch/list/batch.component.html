@@ -1,0 +1,131 @@
+<div>
+  <h2 id="page-heading" data-cy="BatchHeading">
+    <span>Batches</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-batch"
+        [routerLink]="['/batch/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Create a new Batch</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (batches?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Batches found</span>
+    </div>
+  }
+
+  @if (batches && batches.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="batchNumber">
+              <div class="d-flex">
+                <span>Batch Number</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="purchaseQuantity">
+              <div class="d-flex">
+                <span>Purchase Quantity</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="purchasePrice">
+              <div class="d-flex">
+                <span>Purchase Price</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="salePrice">
+              <div class="d-flex">
+                <span>Sale Price</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="purchaseDate">
+              <div class="d-flex">
+                <span>Purchase Date</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="product.name">
+              <div class="d-flex">
+                <span>Product</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (batch of batches; track trackId(batch)) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/batch', batch.id, 'view']">{{ batch.id }}</a>
+              </td>
+              <td>{{ batch.batchNumber }}</td>
+              <td>{{ batch.purchaseQuantity }}</td>
+              <td>{{ batch.purchasePrice }}</td>
+              <td>{{ batch.salePrice }}</td>
+              <td>{{ batch.purchaseDate | formatMediumDate }}</td>
+              <td>
+                @if (batch.product) {
+                  <div>
+                    <a [routerLink]="['/product', batch.product.id, 'view']">{{ batch.product.name }}</a>
+                  </div>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/batch', batch.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline">View</span>
+                  </a>
+
+                  <a [routerLink]="['/batch', batch.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline">Edit</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(batch)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline">Delete</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

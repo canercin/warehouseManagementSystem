@@ -1,0 +1,58 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (batch(); as batchRef) {
+      <div>
+        <h2 data-cy="batchDetailsHeading"><span>Batch</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>Id</span></dt>
+          <dd>
+            <span>{{ batchRef.id }}</span>
+          </dd>
+          <dt><span>Batch Number</span></dt>
+          <dd>
+            <span>{{ batchRef.batchNumber }}</span>
+          </dd>
+          <dt><span>Purchase Quantity</span></dt>
+          <dd>
+            <span>{{ batchRef.purchaseQuantity }}</span>
+          </dd>
+          <dt><span>Purchase Price</span></dt>
+          <dd>
+            <span>{{ batchRef.purchasePrice }}</span>
+          </dd>
+          <dt><span>Sale Price</span></dt>
+          <dd>
+            <span>{{ batchRef.salePrice }}</span>
+          </dd>
+          <dt><span>Purchase Date</span></dt>
+          <dd>
+            <span>{{ batchRef.purchaseDate | formatMediumDate }}</span>
+          </dd>
+          <dt><span>Product</span></dt>
+          <dd>
+            @if (batch()!.product) {
+              <div>
+                <a [routerLink]="['/product', batch()!.product?.id, 'view']">{{ batchRef.product?.name }}</a>
+              </div>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/batch', batchRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>
